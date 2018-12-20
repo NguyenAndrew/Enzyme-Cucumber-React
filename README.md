@@ -1,6 +1,6 @@
 ## Cucumber Enzyme React App
 
-This project will show you how to setup Cucumber and Enzyme on a Create React App. While you are free to download and use this boilerplate repository, I suggest you follow the instructions below to understand how this project works.
+This project will show you how to setup Cucumber and Enzyme on a Create React App. While you are free to download and use this boilerplate repository, I suggest you follow the instructions below to understand how the setup works.
 
 ### Instructions
 
@@ -27,7 +27,8 @@ This project will show you how to setup Cucumber and Enzyme on a Create React Ap
 1. Install jsdom as a dev dependency https://www.npmjs.com/package/jsdom
 1. In your step_definitions, you will need to use JSDOM to configure the dom. https://github.com/airbnb/enzyme/blob/master/docs/guides/jsdom.md
 Note: An example is found in the FAQ / Troubleshooting section below under "Q: ReferenceError: document is not defined"
-1. At this point, your test pasts! Let's now integrate enzyme
+1. At this point, your test pasts! Let's now integrate Enzyme, so we can shallow render components.
+1. Install enzyme and enzyme-adapter-react-16 as dev dependencies
 
 ### FAQ / Troubleshooting
 
@@ -121,3 +122,38 @@ Then('my app should have rendered without crashing', function () {
 Q: ReferenceError: ReferenceError: div is not defined
 
 A: Use this.div when setting and using the variable in Cucumber
+
+---
+
+Q: I got my tests to work? Why should I use enzyme?
+
+A: Enzyme allows you to shallow render React components, allowing you to isolate components when testing.
+
+---
+
+Q: This setup is so long can I shorten is somehow?
+
+A: Yes you can use WebdriverIO to render a built react app into your tests. This remove the need to configure the transpiling and setup needed to run React components on node. http://webdriver.io/
+
+---
+
+Q: If you knew about WebDriver, why did you bother even making this gigantic setup anyway?
+
+A:
+
+* From the front page of webdriver.io, "WebdriverIO lets you control a browser or a mobile application with just a few lines of code." In other words, WebDriverIO lets you do end-to-end testing https://marmelab.com/blog/2016/04/19/e2e-testing-with-node-and-es6.html 
+
+* This guide showind how to configure Cucumber to execute tests on a unit level, which benefits both businesses and developers.
+
+---
+
+Q: How does Unit testing with Cucumber benefit businesses?
+
+A: 
+
+* "Sometimes it is valuable to implement BDD with Cucumber for unit tests, but only when the business can benefit. Imagine a specific algorithm that decides to sell a stock for instance.
+A unit test that is implemented using JUnit or similar should still strive for verifying the behaviour. They should not be aware of the actual implementation. If they are too tightly coupled to the implementation, they will become a hindrance when refactoring. That is not something you want. These unit tests will not be validated by a stakeholder as they are written in code, and most stakeholders don't read code." https://cucumber.io/blog/2016/07/20/where_should_you_use_bdd
+
+* "Cucumber is not slow. Starting a browser is slow. Starting and stopping your application is slow. This is mitigated the more you test at the bottom of the agile testing pyramid. Find a balance where BDD and Cucumber support you rather than hinder you." https://cucumber.io/blog/2016/07/20/where_should_you_use_bdd
+
+* Summary: Behavior Driver Development (BDD) is not a replacement to Unit Tests, Integration Tests, and End-to-End Tests. **BDD is a methodology of testing, and Cucumber helps developers effectively use that methodology.** There is especially a lot of value in how Cucumber allows developers to write unit tests in feature files written in Gherkin: Allowing developers to focus on the features they are implementing, quicker development and test times, creating cleaner code, communication and clarification with product owners, and demonstrating project value to stakeholders.
