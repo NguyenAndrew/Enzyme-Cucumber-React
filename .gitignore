@@ -13,6 +13,7 @@
 
 # transpiled
 features/transpiled_step_definitions
+transpiled
 
 # misc
 .DS_Store

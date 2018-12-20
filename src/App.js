@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+let canUseDOM = !!(
+  (typeof window !== 'undefined' &&
+  window.document && window.document.createElement)
+);
+
+if (canUseDOM) {
+  logo = require('./logo.svg');
+  require('./App.css');
+}
 
 class App extends Component {
   render() {

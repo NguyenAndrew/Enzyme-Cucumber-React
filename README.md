@@ -20,15 +20,58 @@ This project will show you how to setup Cucumber and Enzyme on a Create React Ap
 1. Cucumber runs the step definitions from features/transpiled_step_definitions, so you need to change a breaking imports in step_definitions/stepdefs.js located to `import App from '../../src/App';`
 1. Remove src/App.test.js and change test script to the following: `"test": "npm run babel-test && npm run cucumber-test"`. You can now run your tests with npm run test
 1. At this point, Babel should be able to transpile your Cucumber step definitions folder, but your tests will not pass yet because your App isn't transpiled either!
-
+1. Transpile your source folder, by adding the following script: `"babel-src": "npx babel src --out-dir transpiled --presets=@babel/react,@babel/preset-env --copy-files"` IMPORTANT: Notice that you need to add --copy-files to bring over the non-transpiled files for React. Also make sure to add transpiled to your .gitignore
+1. Fix breaking imports to use transpiled instead of src: `import App from '../../transpiled/App';`
+1. Change the test script to include transpiling of the src folder: `"test": "npm run babel-src && npm run babel-test && npm run cucumber-test"`
+1. Your tests will now run! However, they will fail because the DOM does not exist in the backend. We will fix this shortly.
 
 ### FAQ / Troubleshooting
 
 Q: I have the following error: (function (exports, require, module, __filename, __dirname) { import React from 'react';
+
 A: You need to transpile your step_definitions and/or src directory with Babel, and you need to use the preset @babel/preset-env https://babeljs.io/docs/en/babel-preset-env
 
+---
+
 Q: I have an Unexpected token error: ReactDOM.render(<App />, div);
+
 A: You need to transpile with the Babel preset @babel/preset-react https://babeljs.io/docs/en/babel-preset-react
 
+---
+
 Q: Error: Cannot find module './App'
-A: You need to change your app import in your step_definitions, as if you were running the step definitions from features/transpiled_step_definitions. The correct import mid-tutorial will be ../../src/App in this project. If you have completed the tutorial, this import will be ../../transpiled/App
+
+A: You need to change your app import in your step_definitions, as if you were running the step definitions from features/transpiled_step_definitions. The correct import mid-tutorial will be ../../src/App in this project. If you have started to transpile your application, this import will be ../../transpiled/App
+
+---
+
+Q: I have a Syntax error: (function (exports, require, module, __filename, __dirname) { \<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 841.9 595.3">
+
+Q2: Importing CSS in Cucumber React - I have a Syntax error: (function (exports, require, module, __filename, __dirname) { .App {
+
+SyntaxError: Unexpected token .
+
+A: Your Cucumber step_definitions are running on server instead of a browser client. Therefore, your React code needs to check if it has access to the DOM. https://stackoverflow.com/questions/32216383/in-react-how-do-i-detect-if-my-component-is-rendering-from-the-client-or-the-se
+
+---
+
+Q: 'import' and 'export' may only appear at the top level (9:2)
+A: Use require instead of import. 
+
+For Example: 
+```
+import logo from './logo.svg'; 
+import './App.css';
+```
+Gets converted to
+```
+let canUseDOM = !!(
+  (typeof window !== 'undefined' &&
+  window.document && window.document.createElement)
+);
+
+if (canUseDOM) {
+  logo = require('./logo.svg');
+  require('./App.css');
+}
+```

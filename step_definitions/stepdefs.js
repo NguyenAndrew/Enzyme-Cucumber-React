@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from '../../src/App';
+import App from '../../transpiled/App';
 
 const assert = require('assert');
 const { Given, When, Then } = require('cucumber');
 
-Given('a Document Object Model \(DOM)', function () {
+Given('the DOM', function () {
     const div = document.createElement('div');
 });
 
