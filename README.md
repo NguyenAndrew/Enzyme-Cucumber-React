@@ -116,11 +116,12 @@ Q2: Importing CSS in Cucumber React - I have a Syntax error: (function (exports,
 
 SyntaxError: Unexpected token .
 
-A: Your Cucumber step_definitions are running on server instead of a browser client. Therefore, your React code needs to check if it has access to the DOM. https://stackoverflow.com/questions/32216383/in-react-how-do-i-detect-if-my-component-is-rendering-from-the-client-or-the-se
+A: Your Cucumber step_definitions are running on server instead of a browser client. Therefore, your React code needs to check if it has access to the DOM. https://stackoverflow.com/questions/32216383/in-react-how-do-i-detect-if-my-component-is-rendering-from-the-client-or-the-se Check the answer below to see the code that solves this problem.
 
 ---
 
 Q: 'import' and 'export' may only appear at the top level (9:2)
+
 A: Use require instead of import. 
 
 For Example: 
