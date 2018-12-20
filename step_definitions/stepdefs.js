@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from '../../src/App';
 
 const assert = require('assert');
 const { Given, When, Then } = require('cucumber');
