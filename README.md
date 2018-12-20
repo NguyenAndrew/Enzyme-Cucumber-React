@@ -10,5 +10,14 @@ This project will show you how to setup Cucumber and Enzyme on a Create React Ap
 1. Create a renders_without_crashing.feature file in features/
 1. Delete is_it_friday_yet.feature and any other Cucumber Tutorial stepdefs. Insert missing stepdefs from renders_Without_crashing.feature
 1. Copy code from src/App.test.js into features/step_definitions/stepdefs.js (Note: Your tests will have several errors, which we will fix!)
+1. Install @babel/core and @babel/cli as dev dependencies: https://babeljs.io/docs/en/babel-cli
+1. Move features/step_definitions into step_definitions on the root of your project
+1. Add babel-test script, which looks like the following: `"babel-test": "npx babel step_definitions --out-dir features/transpiled_step_definitions"` Make sure to add features/transpiled_feature_step_definitions into your .gitignore
 
 ### FAQ / Troubleshooting
+
+Q: I have the following error: (function (exports, require, module, __filename, __dirname) { import React from 'react';
+A: You need to transpile your stepdefs.js with Babel
+
+Q: I have an Unexpected token error: ReactDOM.render(<App />, div);
+A: You need to transpile with the Babel preset @babel/preset-react

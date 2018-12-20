@@ -12,6 +12,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "cucumber-test": "cucumber-js",
+    "babel-test": "npx babel step_definitions --out-dir features/transpiled_step_definitions",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -24,6 +25,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.2",
     "cucumber": "^5.0.3"
   }
 }
