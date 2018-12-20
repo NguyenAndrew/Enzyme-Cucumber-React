@@ -17,7 +17,7 @@ This project will show you how to setup Cucumber and Enzyme on a Create React Ap
 1. Use the @babel/preset-react in your babel-test script, which looks like the following: `"babel-test": "npx babel step_definitions --out-dir features/transpiled_step_definitions --presets=@babel/react"`
 1. Install @babel/preset-env as a dev dependency, so you can transpile your latest JavaScript syntax for node (Note: Used when you execute npm run): https://babeljs.io/docs/en/babel-preset-env
 1. Change your babel-test script to also use @babel/preset-env, which looks like the following: `"npx babel step_definitions --out-dir features/transpiled_step_definitions --presets=@babel/react,@babel/preset-env"`
-1. Cucumber runs the step definitions from features/transpiled_step_definitions, so you need to change a breaking imports in step_definitions/stepdefs.js located to `import App from '../../src/App';`
+1. Cucumber runs the step definitions from features/transpiled_step_definitions, so you need to change breaking imports in step_definitions/stepdefs.js. The import should be `import App from '../../src/App';`
 1. Remove src/App.test.js and change test script to the following: `"test": "npm run babel-test && npm run cucumber-test"`. You can now run your tests with npm run test
 1. At this point, Babel should be able to transpile your Cucumber step definitions folder, but your tests will not pass yet because your App isn't transpiled either!
 1. Transpile your source folder, by adding the following script: `"babel-src": "npx babel src --out-dir transpiled --presets=@babel/react,@babel/preset-env --copy-files"` IMPORTANT: Notice that you need to add --copy-files to bring over the non-transpiled files for React. Also make sure to add transpiled to your .gitignore
