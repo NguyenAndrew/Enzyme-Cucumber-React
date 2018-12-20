@@ -129,7 +129,7 @@ For Example:
 import logo from './logo.svg'; 
 import './App.css';
 ```
-Gets converted to
+Should be converted to
 ```
 let canUseDOM = !!(
   (typeof window !== 'undefined' &&
