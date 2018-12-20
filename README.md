@@ -194,7 +194,7 @@ A: Enzyme allows you to shallow render React components, allowing you to isolate
 
 Q: This setup is so long. Can I shorten it somehow?
 
-A: Yes you can use WebdriverIO to render a built react app into your tests. This remove the need to configure the transpiling and setup needed to run React components on node. http://webdriver.io/
+A: Yes you can use WebdriverIO to render a built react app into your tests. This removes the need to configure the transpiling and setup needed to run React components on node. http://webdriver.io/
 
 ---
 
