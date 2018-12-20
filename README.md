@@ -186,25 +186,25 @@ A: Use this.div when setting and using the variable in Cucumber
 
 ---
 
-Q: I got my tests to work? Why should I use enzyme?
+Q: I got my tests to work? Why should I use Enzyme?
 
 A: Enzyme allows you to shallow render React components, allowing you to isolate components when testing.
 
 ---
 
-Q: This setup is so long can I shorten is somehow?
+Q: This setup is so long. Can I shorten it somehow?
 
 A: Yes you can use WebdriverIO to render a built react app into your tests. This remove the need to configure the transpiling and setup needed to run React components on node. http://webdriver.io/
 
 ---
 
-Q: If WebDriver exists, why use this setup?
+Q: If WebdriverIO exists, why use this setup?
 
 A:
 
-* From the front page of webdriver.io, "WebdriverIO lets you control a browser or a mobile application with just a few lines of code." In other words, WebDriverIO lets you do end-to-end testing https://marmelab.com/blog/2016/04/19/e2e-testing-with-node-and-es6.html 
+* From the front page of webdriver.io, "WebdriverIO lets you control a browser or a mobile application with just a few lines of code." WebdriverIO is used for end-to-end testing https://www.npmjs.com/package/webdriverio https://marmelab.com/blog/2016/04/19/e2e-testing-with-node-and-es6.html 
 
-* This guide showind how to configure Cucumber to execute tests on a unit level, which benefits both businesses and developers (Explained in more detail below).
+* This guide shows how to configure Cucumber to execute tests on a unit level, which benefits both businesses and developers (Explained in more detail below).
 
 ---
 
