@@ -1,8 +1,8 @@
-## Cucumber Enzyme React App
+# Cucumber Enzyme React App
 
 This project will show you how to setup Cucumber and Enzyme on a Create React App. While you are free to download and use this boilerplate repository, I suggest you follow the instructions below to understand how the setup works.
 
-### Instructions
+## Instructions
 
 1. Create your React app with Create React App: https://github.com/facebook/create-react-app
 1. Install Cucumber as a dev dependency, and create a test script for cucumber. In this project, the script is called cucumber-test: https://docs.cucumber.io/guides/10-minute-tutorial/
@@ -29,8 +29,68 @@ This project will show you how to setup Cucumber and Enzyme on a Create React Ap
 Note: An example is found in the FAQ / Troubleshooting section below under "Q: ReferenceError: document is not defined"
 1. At this point, your test pasts! Let's now integrate Enzyme, so we can shallow render components.
 1. Install enzyme and enzyme-adapter-react-16 as dev dependencies
+1. Update your feature file, and use enzyme tests in your step defs. Example code below:
 
-### FAQ / Troubleshooting
+features/renders_without_crashing.feature
+```
+Feature: Renders without Crashing
+  Everybody wants to know if my React App can render without crashing
+
+  Scenario: Render App
+    Given the DOM
+    When I render a React component called: App
+    Then my app should have rendered without crashing
+
+    Scenario: Shallow Render App
+    Given the DOM
+    When I shallow render a React component called: App
+    Then my app should have rendered without crashing
+      And my app should contain the words: Learn React
+```
+
+step_definitions/stepdefs.js
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from '../../transpiled/App';
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import { shallow, mount, render} from 'enzyme';
+
+const assert = require('assert');
+const { Given, When, Then } = require('cucumber');
+const { JSDOM } = require('jsdom');
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+const { window } = jsdom;
+
+// Configures Enzyme Adapter
+configure({ adapter: new Adapter() });
+
+Given('the DOM', function () {
+    global.window = window;
+    global.document = window.document;
+});
+
+When('I render a React component called: App', function () {
+    this.div = document.createElement('div');
+    ReactDOM.render(<App />, this.div);
+    ReactDOM.unmountComponentAtNode(this.div);
+});
+
+When('I shallow render a React component called: App', function () {
+    this.wrapper = shallow(<App />);
+});
+
+Then('my app should have rendered without crashing', function () {});
+
+Then('my app should contain the words: Learn React', function () {
+    assert(this.wrapper.contains('Learn React'));
+});
+```
+
+**Congratulations!** You have made Create React App with both Cucumber and Enzyme functionality!
+
+## FAQ / Troubleshooting
 
 Q: I have the following error: (function (exports, require, module, __filename, __dirname) { import React from 'react';
 
@@ -137,13 +197,13 @@ A: Yes you can use WebdriverIO to render a built react app into your tests. This
 
 ---
 
-Q: If you knew about WebDriver, why did you bother even making this gigantic setup anyway?
+Q: If WebDriver exists, why use this setup?
 
 A:
 
 * From the front page of webdriver.io, "WebdriverIO lets you control a browser or a mobile application with just a few lines of code." In other words, WebDriverIO lets you do end-to-end testing https://marmelab.com/blog/2016/04/19/e2e-testing-with-node-and-es6.html 
 
-* This guide showind how to configure Cucumber to execute tests on a unit level, which benefits both businesses and developers.
+* This guide showind how to configure Cucumber to execute tests on a unit level, which benefits both businesses and developers (Explained in more detail below).
 
 ---
 

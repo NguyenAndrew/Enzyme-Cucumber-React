@@ -31,6 +31,8 @@
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
     "cucumber": "^5.0.3",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
     "jsdom": "^13.1.0"
   }
 }
