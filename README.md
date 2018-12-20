@@ -208,7 +208,7 @@ A:
 
 ---
 
-Q: How does Unit testing with Cucumber benefit businesses?
+Q: How does Unit testing with Cucumber benefit businesses and developers?
 
 A: 
 
