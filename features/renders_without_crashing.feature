@@ -6,7 +6,7 @@ Feature: Renders without Crashing
     When I render a React component called: App
     Then my app should have rendered without crashing
 
-    Scenario: Shallow Render App
+  Scenario: Shallow Render App
     Given the DOM
     When I shallow render a React component called: App
     Then my app should have rendered without crashing
