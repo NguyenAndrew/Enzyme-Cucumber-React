@@ -204,7 +204,7 @@ A:
 
 * From the front page of webdriver.io, "WebdriverIO lets you control a browser or a mobile application with just a few lines of code." WebdriverIO is used for end-to-end testing https://www.npmjs.com/package/webdriverio https://marmelab.com/blog/2016/04/19/e2e-testing-with-node-and-es6.html 
 
-* This guide shows how to configure Cucumber to execute tests on a unit level, which benefits both businesses and developers (Explained in more detail below).
+* This guide shows how to configure Cucumber to execute tests on a unit level, which adds additional benefits to both businesses and developers (Explained in more detail below).
 
 ---
 
