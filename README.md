@@ -13,9 +13,9 @@ This project will show you how to setup Cucumber and Enzyme on a Create React Ap
 1. Install @babel/core and @babel/cli as dev dependencies: https://babeljs.io/docs/en/babel-cli
 1. Move features/step_definitions into step_definitions on the root of your project
 1. Add babel-test script, which looks like the following: `"babel-test": "npx babel step_definitions --out-dir features/transpiled_step_definitions"` Make sure to add features/transpiled_feature_step_definitions into your .gitignore
-1. Install @babel/preset-react as dev dependencies, so you can transpile react code: https://babeljs.io/docs/en/babel-preset-react
+1. Install @babel/preset-react as a dev dependency, so you can transpile react code: https://babeljs.io/docs/en/babel-preset-react
 1. Use the @babel/preset-react in your babel-test script, which looks like the following: `"babel-test": "npx babel step_definitions --out-dir features/transpiled_step_definitions --presets=@babel/react"`
-1. Install @babel/preset-env as dev dependencies, so you can transpile your latest JavaScript syntax for node (Note: Used when you execute npm run): https://babeljs.io/docs/en/babel-preset-env
+1. Install @babel/preset-env as a dev dependency, so you can transpile your latest JavaScript syntax for node (Note: Used when you execute npm run): https://babeljs.io/docs/en/babel-preset-env
 1. Change your babel-test script to also use @babel/preset-env, which looks like the following: `"npx babel step_definitions --out-dir features/transpiled_step_definitions --presets=@babel/react,@babel/preset-env"`
 1. Cucumber runs the step definitions from features/transpiled_step_definitions, so you need to change a breaking imports in step_definitions/stepdefs.js located to `import App from '../../src/App';`
 1. Remove src/App.test.js and change test script to the following: `"test": "npm run babel-test && npm run cucumber-test"`. You can now run your tests with npm run test
@@ -24,6 +24,10 @@ This project will show you how to setup Cucumber and Enzyme on a Create React Ap
 1. Fix breaking imports to use transpiled instead of src: `import App from '../../transpiled/App';`
 1. Change the test script to include transpiling of the src folder: `"test": "npm run babel-src && npm run babel-test && npm run cucumber-test"`
 1. Your tests will now run! However, they will fail because the DOM does not exist in the backend. We will fix this shortly.
+1. Install jsdom as a dev dependency https://www.npmjs.com/package/jsdom
+1. In your step_definitions, you will need to use JSDOM to configure the dom. https://github.com/airbnb/enzyme/blob/master/docs/guides/jsdom.md
+Note: An example is found in the FAQ / Troubleshooting section below under "Q: ReferenceError: document is not defined"
+1. At this point, your test pasts! Let's now integrate enzyme
 
 ### FAQ / Troubleshooting
 
@@ -70,8 +74,50 @@ let canUseDOM = !!(
   window.document && window.document.createElement)
 );
 
+let logo = '';
+
 if (canUseDOM) {
   logo = require('./logo.svg');
   require('./App.css');
 }
 ```
+
+---
+
+Q: ReferenceError: document is not defined
+
+A: Your Cucumber step_definitions are running on a server instead of a browser client. https://stackoverflow.com/questions/32126003/node-js-document-is-not-defined. You solve this by using something like JSDOM and creating a global document variable.
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from '../../transpiled/App';
+
+const assert = require('assert');
+const { Given, When, Then } = require('cucumber');
+
+const { JSDOM } = require('jsdom');
+
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+const { window } = jsdom;
+
+Given('the DOM', function () {
+    global.window = window;
+    global.document = window.document;
+});
+
+When('I render a React component called: App', function () {
+    this.div = document.createElement('div');
+    ReactDOM.render(<App />, this.div);
+});
+
+Then('my app should have rendered without crashing', function () {
+    ReactDOM.unmountComponentAtNode(this.div);
+});
+```
+
+---
+
+Q: ReferenceError: ReferenceError: div is not defined
+
+A: Use this.div when setting and using the variable in Cucumber

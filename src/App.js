@@ -5,6 +5,8 @@ let canUseDOM = !!(
   window.document && window.document.createElement)
 );
 
+let logo = '';
+
 if (canUseDOM) {
   logo = require('./logo.svg');
   require('./App.css');
