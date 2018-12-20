@@ -1,17 +1,18 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
 const assert = require('assert');
 const { Given, When, Then } = require('cucumber');
 
 Given('a Document Object Model \(DOM)', function () {
-    // Write code here that turns the phrase above into concrete actions
-    return 'pending';
+    const div = document.createElement('div');
 });
 
 When('I render a React component called: App', function () {
-    // Write code here that turns the phrase above into concrete actions
-    return 'pending';
+    ReactDOM.render(<App />, div);
 });
 
 Then('my app should have rendered without crashing', function () {
-    // Write code here that turns the phrase above into concrete actions
-    return 'pending';
+    ReactDOM.unmountComponentAtNode(div);
 });
