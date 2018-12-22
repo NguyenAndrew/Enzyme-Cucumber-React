@@ -30,7 +30,7 @@ This project will show you how to setup Cucumber and Enzyme on a Create React Ap
 1. In your step_definitions, you will need to use JSDOM. Code on how to use JSDOM is provided in the link and in Part 3. https://github.com/airbnb/enzyme/blob/master/docs/guides/jsdom.md
 
 ### Part 3 - Using Enzyme in your Unit Tests
-19. At this point, your test pasts! Let's now integrate Enzyme, so we can shallow render components.
+20. At this point, your test pasts! Let's now integrate Enzyme, so we can shallow render components.
 1. Install enzyme and enzyme-adapter-react-16 as dev dependencies. https://airbnb.io/enzyme/docs/installation/react-16.html
 1. Update your feature file, and use enzyme tests in your step defs. Your Cucumber tests should look like the following:
 
