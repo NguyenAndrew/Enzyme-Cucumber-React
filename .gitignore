@@ -11,10 +11,6 @@
 # production
 /build
 
-# transpiled
-features/transpiled_step_definitions
-transpiled
-
 # misc
 .DS_Store
 .env.local

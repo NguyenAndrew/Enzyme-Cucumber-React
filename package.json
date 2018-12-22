@@ -10,10 +10,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "npm run babel-src && npm run babel-test && npm run cucumber-test",
-    "babel-src": "npx babel src --out-dir transpiled --presets=@babel/react,@babel/preset-env --copy-files",
-    "cucumber-test": "cucumber-js",
-    "babel-test": "npx babel step_definitions --out-dir features/transpiled_step_definitions --presets=@babel/react,@babel/preset-env",
+    "test": "npx babel-node --presets=@babel/react,@babel/preset-env node_modules/cucumber/bin/cucumber-js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -28,6 +25,7 @@
   "devDependencies": {
     "@babel/cli": "^7.2.0",
     "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
     "cucumber": "^5.0.3",
